@@ -1,0 +1,20 @@
+version: "2"
+services:
+  web:
+    container_name: gifcreator_bot
+    build: .
+    env_file:
+      - ".env"
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
+    container_name: gifcreator_db
+    # database port is 3306
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: unless-stopped
